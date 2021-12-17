@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ONI_String_Assembler</RootNamespace>
     <AssemblyName>ONI String Assembler</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -50,15 +50,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTypes.cs" />
-    <Compile Include="Eval.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="STRINGS.ACHIVEMENTS.cs" />
-    <Compile Include="STRINGS.cs" />
+    <Compile Include="STRINGS\BUILDING.cs" />
+    <Compile Include="STRINGS\BUILDINGS.cs" />
+    <Compile Include="STRINGS\CLUSTER_NAMES.cs" />
+    <Compile Include="STRINGS\CODEX.cs" />
+    <Compile Include="STRINGS\COLONY_ACHIEVEMENTS.cs" />
+    <Compile Include="STRINGS\CREATURES.cs" />
+    <Compile Include="STRINGS\DUPLICANTS.cs" />
+    <Compile Include="STRINGS\ELEMENTS.cs" />
+    <Compile Include="STRINGS\EQUIPMENT.cs" />
+    <Compile Include="STRINGS\GAMEPLAY_EVENTS.cs" />
+    <Compile Include="STRINGS\INPUT.cs" />
+    <Compile Include="STRINGS\INPUT_BINDINGS.cs" />
+    <Compile Include="STRINGS\ITEMS.cs" />
+    <Compile Include="STRINGS\LORE.cs" />
+    <Compile Include="STRINGS\MISC.cs" />
+    <Compile Include="STRINGS\NAMEGEN.cs" />
+    <Compile Include="STRINGS\RESEARCH.cs" />
+    <Compile Include="STRINGS\ROBOTS.cs" />
+    <Compile Include="STRINGS\ROOMS.cs" />
+    <Compile Include="STRINGS\SETITEMS.cs" />
+    <Compile Include="STRINGS\SUBWORLDS.cs" />
+    <Compile Include="STRINGS\UI.cs" />
+    <Compile Include="STRINGS\VIDEOS.cs" />
+    <Compile Include="STRINGS\WORLDS.cs" />
+    <Compile Include="STRINGS\WORLD_TRAITS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="STRINGS\.placeholder" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

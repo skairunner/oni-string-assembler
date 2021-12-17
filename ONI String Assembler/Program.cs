@@ -11,25 +11,37 @@ namespace ONI_String_Assembler
 {
     class Utility
     {
+        // Get a string from the strings
         static public string get_string(string accessor)
         {
             try
             {
                 var names = accessor.Split('.');
                 Assembly asm = Assembly.GetExecutingAssembly();
-                var my_type = asm.GetTypes()
-                        .Where(type => type.Namespace == names[0])
-                        .Where(type => type.Name == names[1])
-                        .Single();
+                var my_type = asm
+                    .GetTypes()
+                    .Where(type => type.Namespace == names[0])
+                    .Where(type => type.Name == names[1])
+                    .First();
                 for (var i = 2; i < names.Length - 1; i++)
                 {
                     my_type = my_type.GetNestedType(names[i]);
                 }
-                return (string)my_type.GetField(names.Last()).GetValue(null);
+
+                return (string) my_type.GetField(names.Last()).GetValue(null);
             }
             catch (InvalidOperationException e)
             {
+                Console.WriteLine(e);
                 return accessor;
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                foreach (var exception in e.LoaderExceptions)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+                throw e;
             }
         }
 
@@ -135,6 +147,7 @@ namespace ONI_String_Assembler
     {
         static T read_lore<T>(string path) where T: IGamepedia
         {
+            Console.WriteLine(path);
             string text = File.ReadAllText(path);
             var deserializer = new DeserializerBuilder()
                 .WithTagMapping("!CodexText", typeof(CodexNode))
@@ -143,14 +156,9 @@ namespace ONI_String_Assembler
             return deserializer.Deserialize<T>(text);
         }
 
-        static string assemble_lore<T>(EmailContainer lore)
-        {
-            return lore.ToGamepedia();
-        }
-
         static void Main(string[] args)
         {
-            var type = "Buildings";
+            var type = "ResearchNotes";
             // var types = ["Emails", "Investigations", "MyLog", "Journals", "Notices", "ResearchNotes", "Plants"];
             var filenames = Directory.GetFiles("codex/" + type, "*", SearchOption.TopDirectoryOnly);
             var s = new System.Text.StringBuilder();
@@ -158,12 +166,12 @@ namespace ONI_String_Assembler
             var lores = new List<EmailContainer>();
             foreach(var path in filenames)
             {
-                string result;
                 lores.Add(read_lore <EmailContainer>(path));
             }
 
             lores.Sort(new SortBySortstring());
 
+            Directory.CreateDirectory($"output");
             File.WriteAllText($"output/{type}", string.Join("\n\n", lores.Select(email => email.ToGamepedia())));
 
             Console.WriteLine("Done.");

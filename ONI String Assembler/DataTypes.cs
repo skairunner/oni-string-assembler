@@ -75,6 +75,8 @@ namespace ONI_String_Assembler
         public string id;
         public string title;
         public string sortString;
+        public string[] dlcIds;
+        public string[] forbiddenDLCIds;
 
         public EmailContent[] contentContainers;
         public string ToGamepedia()
@@ -82,7 +84,13 @@ namespace ONI_String_Assembler
             var title = Utility.get_string(this.title);
             var contentstring = String.Join("\n", contentContainers.Select(content => content.ToGamepedia()));
             contentstring = contentstring.Replace("\n", "\n\n");
-            return $"== {title} ==\n\n:''Unique name: <code>{id}</code>''{contentstring}";
+
+            var expansionBanner = "";
+            if (dlcIds != null && dlcIds.Contains("EXPANSION1_ID"))
+            {
+                expansionBanner = "\n{{DLC Spaced Out}}";
+            }
+            return $"== {title} =={expansionBanner}\n\n:''Unique name: <code>{id}</code>''{contentstring}";
         }
 
         public override string ToString()

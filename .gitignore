@@ -1,5 +1,4 @@
-STRINGS.cs
-STRINGS.ACHIVEMENTS.cs
+**/STRINGS/*.cs
 bin/
 output/
 
